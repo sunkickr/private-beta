@@ -63,6 +63,7 @@ def plugin_dag():
             record = {
                 "name": plugin['name'],
                 "html_url": plugin['html_url'],
+                "api_url":plugin['url'],
                 "description": plugin['description'],
                 "size": plugin['size'],
                 "stargazers_count": plugin['stargazers_count'],
