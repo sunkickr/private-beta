@@ -1,1 +1,1 @@
-FROM quay.io/astronomer/ac-runtime:2.1.0-onbuild
+FROM quay.io/astronomer/2.0.0-2-alpine3.10-onbuild
