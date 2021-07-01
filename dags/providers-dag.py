@@ -27,7 +27,7 @@ default_args = {
      tags=['github scrape'],
      concurrency=60,
      max_active_runs=1)
-def plugin_dag():
+def unoffical_providers_dag():
 
     # Start the pipeline.
     t0 = DummyOperator(
@@ -94,4 +94,4 @@ def plugin_dag():
 
     send_to_airtable(transform_plugin_list(t0 >> get_plugin_list()))
 
-dag = plugin_dag()
+dag = unoffical_providers_dag()
