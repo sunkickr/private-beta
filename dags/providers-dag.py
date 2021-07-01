@@ -37,7 +37,7 @@ def plugin_dag():
     @task
     def get_plugin_list() -> Dict:
         headers = {"Authorization": "token %s" % Variable.get('github_api_token')}
-        url = 'https://api.github.com/search/repositories?q=airflow+plugin&per_page=100'
+        url = 'https://api.github.com/search/repositories?q=airflow+provider&per_page=100'
         page=1
         X = True
         plugins =[]
@@ -81,7 +81,7 @@ def plugin_dag():
     @task
     def send_to_airtable(response: Dict):
         
-        table_name = 'Plugins'
+        table_name = 'UNOFFICAL_PROVIDERS'
         endpoint = None
         headers = {}
         filter_by_fields = ['name', 'html_url']
@@ -95,4 +95,3 @@ def plugin_dag():
     send_to_airtable(transform_plugin_list(t0 >> get_plugin_list()))
 
 dag = plugin_dag()
-        
