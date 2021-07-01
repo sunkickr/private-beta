@@ -43,6 +43,7 @@ def plugin_dag():
         plugins =[]
         while X == True:
             res = requests.get(url + '&page=' + str(page), headers=headers)
+            print(res['items'])
             plugins.append(res['items'])
             if res['items'].len() == 100:
                 page += 1
