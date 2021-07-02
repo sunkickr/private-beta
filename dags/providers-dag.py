@@ -20,7 +20,7 @@ default_args = {
     'dagrun_timeout': timedelta(minutes=2),
 }
 
-@dag('plugin_dag',
+@dag('unoffical_providers_dag',
      schedule_interval='@daily',
      default_args=default_args,
      catchup=False,
