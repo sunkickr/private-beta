@@ -30,7 +30,7 @@ jobs:
     - name: Create image
       id: image
       run: |
-        image=$( curl --location --request POST 'https://api.astronomer.io/hub/v1' \
+        image=$( curl --location --request POST 'https://api.astronomer-dev.io/hub/v1' \
         --header 'Authorization: Bearer ${{ steps.token.outputs.auth_token }}' \
         --header 'Content-Type: application/json' \
         --data-raw '{"query":"mutation imageCreate(\n    $input: ImageCreateInput!\n) {\n    imageCreate (\n    input: $input\n) {\n    id\n    tag\n    repository\n    digest\n    env\n    labels\n    deploymentId\n  }\n}","variables":{"input":{"deploymentId":"cktlwu88p100511dykrye08jlu","tag":"deploy-${{ steps.date.outputs.date }}"}}}' | jq '.data.imageCreate.id' )
