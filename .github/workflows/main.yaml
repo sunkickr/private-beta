@@ -8,11 +8,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - run: tag=deploy-`date "+%Y-%m-%d-%HT%M-%S"`
     - uses: actions/checkout@v1
     - name: Publish to Astronomer.io
       uses: elgohr/Publish-Docker-Github-Action@2.6
       with:
-        name: ckmzjm22937931d35puw3tcdo/theoretical-meteoroid-4280:deploy-`date "+%Y-%m-%d-%HT%M-%S"`
+        name: ckmzjm22937931d35puw3tcdo/theoretical-meteoroid-4280:${tag}
         username: QdFnVDgr4RmQOcBqxNd3MlNDO5QxAvV9
         password: 8lqYzBu2WDnlPiLfAHiKt8PIXTzlBWdQmg6DatSSIpvSqFK4Ro4Q8o12v3kfPocK
         registry: images.astronomer-dev.cloud
