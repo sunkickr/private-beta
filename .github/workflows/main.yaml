@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d-%HT%M-%S')"
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d-%HT%M-%S')"
     - uses: actions/checkout@v1
     - name: Publish to Astronomer.io
       uses: elgohr/Publish-Docker-Github-Action@2.6
@@ -20,16 +20,16 @@ jobs:
         password: 8lqYzBu2WDnlPiLfAHiKt8PIXTzlBWdQmg6DatSSIpvSqFK4Ro4Q8o12v3kfPocK
         registry: images.astronomer-dev.cloud
     - name: Get auth token
-        id: token
-        run: |
-          token=$( curl --location --request POST 'https://auth.astronomer-dev.io/oauth/token' \
-          --header 'content-type: application/json' \
-          --data-raw '{
-              "client_id": "QdFnVDgr4RmQOcBqxNd3MlNDO5QxAvV9",
-              "client_secret": "QdFnVDgr4RmQOcBqxNd3MlNDO5QxAvV9",
-              "audience": "astronomer-ee",
-              "grant_type":"client_credentials"
-          }' | jq '.access_token' )
-          echo "::set-output name=auth_token::$token"
+      id: token
+      run: |
+        token=$( curl --location --request POST 'https://auth.astronomer-dev.io/oauth/token' \
+        --header 'content-type: application/json' \
+        --data-raw '{
+            "client_id": "QdFnVDgr4RmQOcBqxNd3MlNDO5QxAvV9",
+            "client_secret": "QdFnVDgr4RmQOcBqxNd3MlNDO5QxAvV9",
+            "audience": "astronomer-ee",
+            "grant_type":"client_credentials"
+        }' | jq '.access_token' )
+        echo "::set-output name=auth_token::$token"
     - run: echo ${{ steps.token.outputs.auth_token }
         
