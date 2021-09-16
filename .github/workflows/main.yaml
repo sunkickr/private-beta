@@ -36,3 +36,9 @@ jobs:
         --data-raw '{"query":"mutation imageCreate(\n    $input: ImageCreateInput!\n) {\n    imageCreate (\n    input: $input\n) {\n    id\n    tag\n    repository\n    digest\n    env\n    labels\n    deploymentId\n  }\n}","variables":{"input":{"deploymentId":"cktlwu88p100511dykrye08jlu","tag":"deploy-${{ steps.date.outputs.date }}"}}}' | jq -r '.data.imageCreate.id')
         echo "::set-output name=image_id::$image"
     - run: echo ${{ steps.image.outputs.image_id }}
+    - name: Deploy image
+      run: |
+        curl --location --request POST 'https://api.astronomer-dev.io/hub/v1' \
+        --header 'Authorization: Bearer ${{ steps.token.outputs.auth_token }}' \
+        --header 'Content-Type: application/json' \
+        --data-raw '{"query":"mutation imageDeploy(\n    $input: ImageDeployInput!\n  ) {\n    imageDeploy(\n      input: $input\n    ) {\n      id\n      deploymentId\n      digest\n      env\n      labels\n      name\n      tag\n      repository\n    }\n}","variables":{"input":{"id":"${{ steps.image.outputs.image_id }}","tag":"deploy-${{ steps.date.outputs.date }}","repository":"images.astronomer-dev.cloud/ckmzjm22937931d35puw3tcdo/cktlwu88p100511dykrye08jlu"}}}'
