@@ -6,6 +6,29 @@ DEPLOYMENT_ID=$4
 # install jq
 # brew install jq
 
+# validate variables
+
+if [ -z "$KEY_ID" ] 
+then
+    echo "Key Id is required";
+    exit 
+fi
+if [ -z "$KEY_SECRET" ] 
+then
+    echo "Key Secret is required";
+    exit 
+fi
+if [ -z "$ORGANIZATION_ID" ] 
+then
+    echo "Organization Id is required";
+    exit 
+fi
+if [ -z "$DEPLOYMENT_ID" ] 
+then
+    echo "Deployment Id is required";
+    exit 
+fi
+
 # Create time stamp
 TAG=deploy-`date "+%Y-%m-%d-%HT%M-%S"`
 
