@@ -8,8 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      ORGANIZATION_ID: ckmzjm22937931d35puw3tcdo
-      DEPLOYMENT_ID: cktlwu88p100511dykrye08jlu
+      ORGANIZATION_ID: cknaqyipv05731evsry6cj4n0
+      DEPLOYMENT_ID: cksrkobq8236413fc0nr21t35nv
     steps:
     - uses: actions/checkout@v2
     - name: Get current date
