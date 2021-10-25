@@ -20,14 +20,14 @@ default_args = {
     'dagrun_timeout': timedelta(minutes=2),
 }
 
-@dag('unoffical_providers_dag',
+@dag('unoffical_providers_dag_test',
      schedule_interval='@daily',
      default_args=default_args,
      catchup=False,
      tags=['github scrape'],
      concurrency=60,
      max_active_runs=1)
-def unoffical_providers_dag():
+def unoffical_providers_dag_test():
 
     # Start the pipeline.
     t0 = DummyOperator(
@@ -94,4 +94,4 @@ def unoffical_providers_dag():
 
     send_to_airtable(transform_plugin_list(t0 >> get_plugin_list()))
 
-dag = unoffical_providers_dag()
+dag = unoffical_providers_dag_test()
