@@ -3,3 +3,5 @@
 airflow_settings.yaml
 .DS_Store
 astro
+api-calls
+.venv

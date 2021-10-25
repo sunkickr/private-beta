@@ -32,20 +32,20 @@ fi
 # Create time stamp
 TAG=deploy-`date "+%Y-%m-%d-%HT%M-%S"`
 
-# Step 1. Use the Access token in the `astro auth login` command
-docker login images.astronomer-dev.cloud -u $KEY_ID -p $KEY_SECRET
+# Step 1. login to the astronomer.cloud docker registry
+docker login images.astronomer.cloud -u $KEY_ID -p $KEY_SECRET
 
 # Step 2. Request the Organization Id
 
 # Step 3. Build the image
-docker build . -t images.astronomer-dev.cloud/$ORGANIZATION_ID/$DEPLOYMENT_ID:$TAG
+docker build . -t images.astronomer.cloud/$ORGANIZATION_ID/$DEPLOYMENT_ID:$TAG
 
 # Step 4. Push the image
-docker push images.astronomer-dev.cloud/$ORGANIZATION_ID/$DEPLOYMENT_ID:$TAG
+docker push images.astronomer.cloud/$ORGANIZATION_ID/$DEPLOYMENT_ID:$TAG
 
 # Step 5. Get the access token
 echo "get token"
-TOKEN=$( curl --location --request POST "https://auth.astronomer-dev.io/oauth/token" \
+TOKEN=$( curl --location --request POST "https://auth.astronomer.io/oauth/token" \
         --header "content-type: application/json" \
         --data-raw "{ 
             \"client_id\": \"$KEY_ID\",
@@ -55,7 +55,7 @@ TOKEN=$( curl --location --request POST "https://auth.astronomer-dev.io/oauth/to
 echo $TOKEN
 # Step 6. Create the Image
 echo "get image id"
-IMAGE=$( curl --location --request POST "https://api.astronomer-dev.io/hub/v1" \
+IMAGE=$( curl --location --request POST "https://api.astronomer.io/hub/v1" \
         --header "Authorization: Bearer $TOKEN" \
         --header "Content-Type: application/json" \
         --data-raw "{
@@ -70,7 +70,7 @@ IMAGE=$( curl --location --request POST "https://api.astronomer-dev.io/hub/v1" \
 echo $IMAGE
 # Step 7. Deploy the Image
 echo "deploy image"
-curl --location --request POST "https://api.astronomer-dev.io/hub/v1" \
+curl --location --request POST "https://api.astronomer.io/hub/v1" \
         --header "Authorization: Bearer $TOKEN" \
         --header "Content-Type: application/json" \
         --data-raw "{
@@ -79,7 +79,7 @@ curl --location --request POST "https://api.astronomer-dev.io/hub/v1" \
                 \"input\" : {
                     \"id\" : \"$IMAGE\",
                     \"tag\" : \"$TAG\",
-                    \"repository\" : \"images.astronomer-dev.cloud/$ORGANIZATION_ID/$DEPLOYMENT_ID\"
+                    \"repository\" : \"images.astronomer.cloud/$ORGANIZATION_ID/$DEPLOYMENT_ID\"
                     }
                 }
             }"
